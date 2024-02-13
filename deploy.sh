@@ -1,7 +1,6 @@
 export LOCATION="eastus"
 export PROJECT_PREFIX="missisippi"
 export PROJECT_SUFFIX="$(cat /dev/urandom | tr -dc 'a-z' | fold -w 8 | head -n 1)"
-# export WINDOWS_OR_LINUX="windows"
 
 if [ -f "./missisippi.json" ]; then
   export PROJECT_SUFFIX=$(jq -r '.PROJECT_SUFFIX' missisippi.json)
