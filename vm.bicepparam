@@ -27,27 +27,32 @@ var imageReference = {
   }
 }
 
+var project_prefix = readEnvironmentVariable('PROJECT_PREFIX', '')
+var project_suffix = readEnvironmentVariable('PROJECT_SUFFIX', '')
+
+var windows_or_linux = readEnvironmentVariable('WINDOWS_OR_LINUX', 'windows')
+
 param creds = {
   username: 'azureuser'
   password: '$tr0ngP@ssw0rd1234!'
   sshKey: ''
 }
 
-var vmName = 'vm-common'
-var OS = 'WindowsServer-2022-DataCenter'
+var vmName = 'vm-${project_prefix}'
+var OS = windows_or_linux == 'windows' ? 'WindowsServer-2022-DataCenter' : 'Ubuntu-2004'
 
 param common = {
   vmName: vmName
   vmImageReference: imageReference[OS]
   addressPrefix: '10.0.0.0/16'
-  dnsLabelPrefix: toLower('${vmName}-${uniqueString(vmName)}')
-  networkSecurityGroupName: 'default-NSG'
-  nicName: 'myVMNic'
+  dnsLabelPrefix: toLower('${vmName}-${project_suffix}-${uniqueString(vmName)}')
+  networkSecurityGroupName: 'nsg-${project_prefix}-${uniqueString(vmName)}'
+  nicName: 'nic-${project_prefix}-${uniqueString(vmName)}'
   publicIPAllocationMethod: 'Dynamic'
-  publicIpName: 'myPublicIP'
+  publicIpName: 'pip-${project_prefix}-${uniqueString(vmName)}'
   publicIpSku: 'Basic'
-  storageAccountName: 'bootdiags${uniqueString(vmName)}'
-  subnetName: 'Subnet'
+  storageAccountName: 'bdiags${windows_or_linux}${uniqueString(vmName)}'
+  subnetName: 'subnet-${project_prefix}-${uniqueString(vmName)}'
   subnetPrefix: '10.0.0.0/24'
-  virtualNetworkName: 'myVNET'
+  virtualNetworkName: 'vnet-${project_prefix}-${uniqueString(vmName)}'
 }
