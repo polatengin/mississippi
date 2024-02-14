@@ -23,3 +23,8 @@ param common object
 The `creds` parameter is used to pass `username` and `password`, or `username` and `sshkey` pairs for the _Virtual Machine_, based on the _Operating System_.
 
 The `common` parameter is used to pass the `addressPrefix`, `dnsLabelPrefix`, `virtualNetworkName`, `subnetName`, `publicIpName`, `networkSecurityGroupName`, `nicName`, `publicIPAllocationMethod`, `subnetPrefix`, `publicIpSku` and `storageAccountName` for the _Virtual Machine_.
+
+## References
+
+- [Creating Ubuntu Virtual Machine using Bicep](https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-bicep?tabs=CLI)
+- [Creating Windows Virtual Machine using Bicep](https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-bicep?tabs=CLI)
